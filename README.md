@@ -68,10 +68,8 @@ ollama create qwen2.5:14b-instruct-8k -f ollama_models/Qwen-14b-Instruct-8k
 
 # On MacOS you might need to use -from instead of -f
 
-# Create Deepseek model with 8k context - recommended for reasoning
 ollama create deepseek-r1:7b-8k -from ollama_models/Deepseek-r1-7b-8k
 
-# Create Qwen model with 8k context - recommended for conversation
 ollama create qwen2.5:14b-instruct-8k -from ollama_models/Qwen-14b-Instruct-8k
 ```
 
