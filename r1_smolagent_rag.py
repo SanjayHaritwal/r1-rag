@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 import os
-
 load_dotenv()
 
 reasoning_model_id = os.getenv("REASONING_MODEL_ID")
@@ -43,13 +42,11 @@ def rag_with_reasoner(user_query: str) -> str:
     Args:
         user_query: The user's question to query the vector database with.
     """
-    # Search for relevant documents
+    
     docs = vectordb.similarity_search(user_query, k=3)
     
-    # Combine document contents
     context = "\n\n".join(doc.page_content for doc in docs)
     
-    # Create prompt with context
     prompt = f"""Based on the following context, answer the user's question. Be concise and specific.
     If there isn't sufficient information, give as your answer a better query to perform RAG with.
     
@@ -64,11 +61,9 @@ Answer:"""
     response = reasoner.run(prompt, reset=False)
     return response
 
-# Create the primary agent to direct the conversation
 tool_model = get_model(tool_model_id)
 primary_agent = ToolCallingAgent(tools=[rag_with_reasoner], model=tool_model, add_base_tools=False, max_steps=3)
 
-# Example prompt: Compare and contrast the services offered by RankBoost and Omni Marketing
 def main():
     GradioUI(primary_agent).launch()
 
