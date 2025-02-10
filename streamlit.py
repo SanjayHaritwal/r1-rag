@@ -15,7 +15,7 @@ def handle_user_input(prompt: str):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
-
+    
     # Generate response
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
